@@ -1,0 +1,56 @@
+[Settings]
+Appname = ACG Quiz
+Debug = 1
+Random-mode = 1
+BG-Colour = lightblue 
+Max-Questions = 10
+
+[Q1]
+Title = What does UO stand for?
+Options = 1) Underlying OS  2) Unplanned override   3) Unplanned overload  4) Uni OS
+Correct-ans = 3
+
+[Q2]
+Title = When does reactor sheild start to degrade?
+Options = 1) 2500C  2) 3000C  3) 3500C  4) 4000C
+Correct-ans = 2
+
+[Q3]
+Title = How many shutdown buttons are there?
+Options = 1) One 2) Three  3) Five  4) Six
+Correct-ans = 4
+
+[Q4]
+Title = What is a crit sheild integridty?
+Options = 1) 10%  2) 15%  3) 20%  4) 25%
+Correct-ans = 4
+
+[Q5]
+Title = What speed do the coolent pumps start to stress?
+Options = 1) 7  2) 7.5  3) 8  4) 8.5
+Correct-ans = 2
+
+[Q6]
+Title = Who founded Solaris?
+Options = 1) Pio  2) vvv  3) Nodoubt  4) Juusto
+Correct-ans = 4
+
+[Q7]
+Title = What temp is shutdown impossible at?
+Options = 1) 3500C  2) 4500C  3) 5500C  4) 6500C
+Correct-ans = 2
+
+[Q8]
+Title = When was ACG originally released?
+Options = 1) 2019  2) 2020  3) 2021  4) 2022
+Correct-ans = 3
+
+[Q9]
+Title = How many player can be in 1 server?
+Options = 1) 28  2) 30  3) 32  4) 34
+Correct-ans = 3
+
+[Q10]
+Title = Is there a freezdown in ACG?
+Options = 1) Kinda  2) Yes  3) NO  4) Devs say No
+Correct-ans = 1
