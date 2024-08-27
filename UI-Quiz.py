@@ -14,10 +14,18 @@ app = customtkinter.CTk()
 app.title(Conf.get('Settings', 'Appname'))
 app.geometry("480x240")
 app.resizable(0, 0)
-rand_list = [1,2,3,4,5,6,7,8,9,10]
+rand_list = []
 Q = 1
 cor = 0
 incc = 0
+Tmp = 0
+Comp = 0
+
+while Tmp < Max:
+    Tmp = Tmp+1
+    rand_list.append(Tmp)
+    print("Added " +str(Tmp))
+    print("Curr list " +str(rand_list))
 
 frame = customtkinter.CTkFrame(app)
 frame.grid(row=1, padx=100, pady=0)
@@ -36,167 +44,6 @@ label4 = customtkinter.CTkLabel(frame, text="Some random text to test sum", widt
 label4.grid(row=3, column=2, padx=10, pady=5, sticky="new")
 label5 = customtkinter.CTkLabel(frame, text="Some random text to test sum", width=200, text_color="white")
 label5.grid(row=4, column=2, padx=10, pady=(5, 10), sticky="new")
-
-#Selection system
-def selection():
-  global debug
-  label.configure(text="Question " +str(Q)+ " :")
-  label2.configure(text_color="white")
-  label3.configure(text_color="white")
-  label4.configure(text_color="white")
-  label5.configure(text_color="white")
-  if rand == 1:
-    if Q > Max:
-      print("rand END")
-      end()
-
-    else:
-      #Random question selection 
-      #Works and has been optimised 
-      num = random.choice(rand_list)
-      if debug == 1:
-        print(rand_list) 
-        print(num)
-        if num == 1:
-          q1()
-          print("Q1")
-          rand_list.remove(1)
-
-        elif num == 2:
-          q2()
-          print("Q2")
-          rand_list.remove(2)
-
-        elif num == 3:
-          q3()
-          print("Q3")
-          rand_list.remove(3)
-        
-        elif num == 4:
-          q4()
-          print("Q4")
-          rand_list.remove(4)
-        
-        elif num == 5:
-          q5()
-          print("Q5")
-          rand_list.remove(5)
-        
-        elif num == 6:
-          q6()
-          print("Q6")
-          rand_list.remove(6)
-        
-        elif num == 7:
-          q7()
-          print("Q7")
-          rand_list.remove(7)
-        
-        elif num == 8:
-          q8()
-          print("Q8")
-          rand_list.remove(8)
-        
-        elif num == 9:
-          q9()
-          print("Q9")
-          rand_list.remove(9)
-        
-        elif num == 10:
-          q10()
-          print("Q10")
-          rand_list.remove(10)
-      #Debug disabled ver of rand
-      else:
-        if num == 1:
-          q1()
-          print("Q1")
-          rand_list.remove(1)
-
-        elif num == 2:
-          q2()
-          print("Q2")
-          rand_list.remove(2)
-
-        elif num == 3:
-          q3()
-          print("Q3")
-          rand_list.remove(3)
-        
-        elif num == 4:
-          q4()
-          print("Q4")
-          rand_list.remove(4)
-        
-        elif num == 5:
-          q5()
-          print("Q5")
-          rand_list.remove(5)
-        
-        elif num == 6:
-          q6()
-          print("Q6")
-          rand_list.remove(6)
-        
-        elif num == 7:
-          q7()
-          print("Q7")
-          rand_list.remove(7)
-        
-        elif num == 8:
-          q8()
-          print("Q8")
-          rand_list.remove(8)
-        
-        elif num == 9:
-          q9()
-          print("Q9")
-          rand_list.remove(9)
-        
-        elif num == 10:
-          q10()
-          print("Q10")
-          rand_list.remove(10)
-
-
-
-
-
-  # Sequential Question selection 
-  else:
-    if Q > Max:
-      end()
-    else:
-      if str(Q) == '1':
-          q1()
-
-      elif str(Q) == '2':
-          q2()
-
-      elif str(Q) == '3':
-          q3()
-
-      elif str(Q) == '4':
-          q4()
-
-      elif str(Q) == '5':
-          q5()
-        
-      elif str(Q) == '6':
-        q6()
-        
-      elif str(Q) == '7':
-        q7()
-        
-      elif str(Q) == '8':
-        q8()
-        
-      elif str(Q) == '9':
-        q9()
-        
-      elif str(Q) == '10':
-        q10()
-      
 
 #shows end results
 def end():
@@ -218,7 +65,35 @@ def Hide_all():
   btn3.grid_forget()
   btn4.grid_forget()
 
+#Selection system
+def selection():
+    global Comp
+    if Comp != Max:
+        label2.configure(text_color="white")
+        label3.configure(text_color="white")
+        label4.configure(text_color="white")
+        label5.configure(text_color="white")
+        global corr
+        global TmpQ
+        print("Curr comp = " +str(Comp))
+        print("Current list " +str(rand_list))
+        out = random.choice(rand_list)
+        print(out)
+        Q = "Q" +str(out)
+        print(Q)
+        TmpQ = Q
+        corr = Conf.get(Q, 'Correct-ans')
+        label.configure(text="Question " +str(Comp+1)+ ":")
+        label1.configure(text=Conf.get(Q, 'Title'))
+        label2.configure(text=Conf.get(Q, 'Op1'))
+        label3.configure(text=Conf.get(Q, 'Op2'))
+        label4.configure(text=Conf.get(Q, 'Op3'))
+        label5.configure(text=Conf.get(Q, 'Op4'))
+        rand_list.remove(out)
+        Comp = Comp +1
 
+    else:
+        end()
 
 #Button 1 command
 def button1():
@@ -316,127 +191,6 @@ btn3.grid(row=3, column=0, padx=10, pady=5, sticky="new")
 
 btn4 = customtkinter.CTkButton(frame, text="4", command=button4, width=50, text_color="white")
 btn4.grid(row=4, column=0, padx=10, pady=(5, 10), sticky="new")
-
-#Questions
-def q1():
-  global corr
-  global Q
-  corr = Conf.get('Q1', 'Correct-ans')
-  global TmpQ
-  TmpQ = 1
-  label1.configure(text=Conf.get('Q1', 'Title'))
-  label2.configure(text=Conf.get('Q1', 'Op1'))
-  label3.configure(text=Conf.get('Q1', 'Op2'))
-  label4.configure(text=Conf.get('Q1', 'Op3'))
-  label5.configure(text=Conf.get('Q1', 'Op4'))
-
-def q2():
-  global corr
-  global Q
-  corr = Conf.get('Q2', 'Correct-ans')
-  global TmpQ
-  TmpQ = 2
-  label1.configure(text=Conf.get('Q2', 'Title'))
-  label2.configure(text=Conf.get('Q2', 'Op1'))
-  label3.configure(text=Conf.get('Q2', 'Op2'))
-  label4.configure(text=Conf.get('Q2', 'Op3'))
-  label5.configure(text=Conf.get('Q2', 'Op4'))
-
-def q3():
-  global corr
-  global Q
-  corr = Conf.get('Q3', 'Correct-ans')
-  global TmpQ
-  TmpQ = 3
-  label1.configure(text=Conf.get('Q3', 'Title'))
-  label2.configure(text=Conf.get('Q3', 'Op1'))
-  label3.configure(text=Conf.get('Q3', 'Op2'))
-  label4.configure(text=Conf.get('Q3', 'Op3'))
-  label5.configure(text=Conf.get('Q3', 'Op4'))
-
-def q4():
-  global corr
-  global Q
-  corr = Conf.get('Q4', 'Correct-ans')
-  global TmpQ
-  TmpQ = 4
-  label1.configure(text=str(Conf.get('Q4', 'Title')))
-  label2.configure(text=str(Conf.get('Q4', 'Op1')))
-  label3.configure(text=str(Conf.get('Q4', 'Op2')))
-  label4.configure(text=str(Conf.get('Q4', 'Op3')))
-  label5.configure(text=str(Conf.get('Q4', 'Op4')))
-
-def q5():
-  global corr
-  global Q
-  corr = Conf.get('Q5', 'Correct-ans')
-  global TmpQ
-  TmpQ = 5
-  label1.configure(text=Conf.get('Q5', 'Title'))
-  label2.configure(text=Conf.get('Q5', 'Op1'))
-  label3.configure(text=Conf.get('Q5', 'Op2'))
-  label4.configure(text=Conf.get('Q5', 'Op3'))
-  label5.configure(text=Conf.get('Q5', 'Op4'))
-
-def q6():
-  global corr
-  global Q
-  corr = Conf.get('Q6', 'Correct-ans')
-  global TmpQ
-  TmpQ = 6
-  label1.configure(text=Conf.get('Q6', 'Title'))
-  label2.configure(text=Conf.get('Q6', 'Op1'))
-  label3.configure(text=Conf.get('Q6', 'Op2'))
-  label4.configure(text=Conf.get('Q6', 'Op3'))
-  label5.configure(text=Conf.get('Q6', 'Op4'))
-
-def q7():
-  global corr
-  global Q
-  corr = Conf.get('Q7', 'Correct-ans')
-  global TmpQ
-  TmpQ = 7
-  label1.configure(text=Conf.get('Q7', 'Title'))
-  label2.configure(text=Conf.get('Q7', 'Op1'))
-  label3.configure(text=Conf.get('Q7', 'Op2'))
-  label4.configure(text=Conf.get('Q7', 'Op3'))
-  label5.configure(text=Conf.get('Q7', 'Op4'))
-
-def q8():
-  global corr
-  global Q
-  corr = Conf.get('Q8', 'Correct-ans')
-  global TmpQ
-  TmpQ = 8
-  label1.configure(text=Conf.get('Q8', 'Title'))
-  label2.configure(text=Conf.get('Q8', 'Op1'))
-  label3.configure(text=Conf.get('Q8', 'Op2'))
-  label4.configure(text=Conf.get('Q8', 'Op3'))
-  label5.configure(text=Conf.get('Q8', 'Op4'))
-
-def q9():
-  global corr
-  global Q
-  corr = Conf.get('Q9', 'Correct-ans')
-  global TmpQ
-  TmpQ = 9
-  label1.configure(text=Conf.get('Q9', 'Title'))
-  label2.configure(text=Conf.get('Q9', 'Op1'))
-  label3.configure(text=Conf.get('Q9', 'Op2'))
-  label4.configure(text=Conf.get('Q9', 'Op3'))
-  label5.configure(text=Conf.get('Q9', 'Op4'))
-
-def q10():
-  global corr
-  global Q
-  corr = Conf.get('Q10', 'Correct-ans')
-  global TmpQ
-  TmpQ = 10
-  label1.configure(text=Conf.get('Q10', 'Title'))
-  label2.configure(text=Conf.get('Q10', 'Op1'))
-  label3.configure(text=Conf.get('Q10', 'Op2'))
-  label4.configure(text=Conf.get('Q10', 'Op3'))
-  label5.configure(text=Conf.get('Q10', 'Op4'))
 
 selection()
 app.mainloop()
