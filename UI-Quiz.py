@@ -3,25 +3,49 @@ from os import strerror
 import customtkinter
 import random
 import configparser
-
+from PIL import Image
 
 Conf = configparser.ConfigParser()
-Conf.read('Conf.txt')
-rand = Conf.getint('Settings', 'Random-mode')
+Conf.read('Conf.ini')
 Max = Conf.getint('Settings', 'Max-Questions')
 debug = Conf.getint('Settings', 'Debug')
 app = customtkinter.CTk()
 app.title(Conf.get('Settings', 'Appname'))
 app.geometry("480x240")
 app.resizable(0, 0)
-rand_list = []
+Settingsicon = customtkinter.CTkImage(light_image=Image.open("Settings-icon.png"), size=(30, 30))
+
 Q = 1
 cor = 0
 incc = 0
 Tmp = 0
 Comp = 0
+def change_appearance_mode(new_mode):
+    customtkinter.set_appearance_mode(new_mode)
 
-while Tmp < Max:
+def conf_upd():
+   global Tmp
+   global Max
+   global debug
+   conf_new = entry.get()
+   print("New Config path is " +str(conf_new))
+   Conf.read(conf_new)
+   Max = Conf.getint('Settings', 'Max-Questions')
+   debug = Conf.getint('Settings', 'Debug')
+   app.title(Conf.get('Settings', 'Appname'))
+   Tmp = 0
+   List_load()
+   app.after(100, None)
+   selection()
+
+def List_load():
+  global Tmp
+  global Max
+  global rand_list
+  global Comp
+  Comp = 0
+  rand_list = []
+  while Tmp < Max:
     Tmp = Tmp+1
     rand_list.append(Tmp)
     print("Added " +str(Tmp))
@@ -64,6 +88,32 @@ def Hide_all():
   btn2.grid_forget()
   btn3.grid_forget()
   btn4.grid_forget()
+
+def settings():
+    global entry
+    global settings_window
+    global option_menu
+    try:
+        if settings_window.winfo_exists():
+            settings_window.focus()  # If window exists, focus it
+    except NameError:
+        settings_window = customtkinter.CTkToplevel(app)
+        settings_window.title("Settings")
+        settings_window.geometry("480x240")
+        settings_window.resizable(0, 0)  # Create window if it doesn't exist
+        label = customtkinter.CTkLabel(settings_window, text="Enter the config path", text_color="white")
+        label.grid(row=0, column=0, padx=0, pady=0)
+        settings_window.grid_columnconfigure(0, weight=1)
+        entry = customtkinter.CTkEntry(settings_window, placeholder_text="Config Path")
+        entry.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="nsew")
+        update_button = customtkinter.CTkButton(settings_window, text="Update Path", command=conf_upd)
+        update_button.grid(row=1, column=0, padx=20, pady=0, sticky="nsew")
+        appearance_mode_menu = customtkinter.CTkOptionMenu(settings_window, values=["Light", "Dark", "System"], command=change_appearance_mode)
+        appearance_mode_menu.grid(row=3, column=0, padx=0, pady=(20, 10))
+        
+
+
+
 
 #Selection system
 def selection():
@@ -192,5 +242,9 @@ btn3.grid(row=3, column=0, padx=10, pady=5, sticky="new")
 btn4 = customtkinter.CTkButton(frame, text="4", command=button4, width=50, text_color="white")
 btn4.grid(row=4, column=0, padx=10, pady=(5, 10), sticky="new")
 
+btn_settings = customtkinter.CTkButton(app, image=Settingsicon, text="", width=60, command=settings)
+btn_settings.grid(row=0, column=0, padx=15, pady=5, sticky="ne")
+
+List_load()
 selection()
 app.mainloop()
