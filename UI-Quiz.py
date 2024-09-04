@@ -14,7 +14,7 @@ app.title(Conf.get('Settings', 'Appname'))
 app.geometry("480x240")
 app.resizable(0, 0)
 Settingsicon = customtkinter.CTkImage(light_image=Image.open("Settings-icon.png"), size=(30, 30))
-
+settings_window = None
 Q = 1
 cor = 0
 incc = 0
@@ -92,25 +92,33 @@ def Hide_all():
 def settings():
     global entry
     global settings_window
-    global option_menu
-    try:
-        if settings_window.winfo_exists():
-            settings_window.focus()  # If window exists, focus it
-    except NameError:
+
+    def on_closing():
+      global settings_window
+      settings_window.destroy()
+      settings_window = None
+    
+    if settings_window is None or not settings_window.winfo_exists():
         settings_window = customtkinter.CTkToplevel(app)
         settings_window.title("Settings")
         settings_window.geometry("480x240")
         settings_window.resizable(0, 0)  # Create window if it doesn't exist
+        settings_window.protocol("WM_DELETE_WINDOW", on_closing)  # Handle window close event
+
         label = customtkinter.CTkLabel(settings_window, text="Enter the config path", text_color="white")
         label.grid(row=0, column=0, padx=0, pady=0)
         settings_window.grid_columnconfigure(0, weight=1)
+
         entry = customtkinter.CTkEntry(settings_window, placeholder_text="Config Path")
         entry.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="nsew")
+
         update_button = customtkinter.CTkButton(settings_window, text="Update Path", command=conf_upd)
         update_button.grid(row=1, column=0, padx=20, pady=0, sticky="nsew")
+
         appearance_mode_menu = customtkinter.CTkOptionMenu(settings_window, values=["Light", "Dark", "System"], command=change_appearance_mode)
         appearance_mode_menu.grid(row=3, column=0, padx=0, pady=(20, 10))
-        
+    else:
+        settings_window.focus()  # If window exists, focus it
 
 
 
