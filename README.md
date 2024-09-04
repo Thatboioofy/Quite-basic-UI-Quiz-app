@@ -1,4 +1,4 @@
-# Quite-basic-UI-Quiz-app [Pre-release]
+# Quite-basic-UI-Quiz-app
 (Also sorry for the bad spelling)
 A fairly basic and badly written Quiz app with somwhat working customisations
 
@@ -6,8 +6,7 @@ This program is really badly written and will be broken sometimes when im adding
 
 This also requires both CustomTKinter and configparser to be installed to work (You can search up on how to install them)
 
-This is a pre-release and is still being updated to get all the fucntions from the old UI into the new one.
-Please report anybugs so I can attempt to fix them
+Most of the bugs have been fixed please report them if they occur
 
 #Instructions to run the program:
 
@@ -30,3 +29,13 @@ Correct-ans = 3`
 where you change the Title to the question you want to be shown
 the Op1/2/3/4 as the options the user has to select from 
 the Correct-ans just tells the program what the correct Op would be 
+
+Goals : 
+- [ ] add True/False question type
+- [ ] add multiple choice question type
+- [x] add settings
+- [x] add new selection system
+- [ ] add streak system
+- [ ] Compile to singular exe for ease of use
+- [ ] make monitoring website for mass questionaire    
+ 
