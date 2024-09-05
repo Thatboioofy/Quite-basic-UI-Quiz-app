@@ -35,7 +35,8 @@ Goals :
 - [ ] add multiple choice question type
 - [x] add settings
 - [x] add new selection system
-- [ ] add streak system
-- [ ] Compile to singular exe for ease of use
-- [ ] make monitoring website for mass questionaire    
+- [x] add streak system
+- [x] Compile to singular exe for ease of use
+- [ ] make monitoring website for mass questionaire
+(Streak system and exe are only in pre-release for now)
  
