@@ -38,5 +38,7 @@ Goals :
 - [x] add streak system
 - [x] Compile to singular exe for ease of use
 - [ ] make monitoring website for mass questionaire
+
+
 (Streak system and exe are only in pre-release for now)
  
