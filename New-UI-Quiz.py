@@ -59,7 +59,6 @@ def accent_colour(new_col):
       highlight = "#146308"
     else:
       acccolour = new_col
-    canvas.create_rectangle(0, 0, move, 30, fill=acccolour, width=2, outline="")
     btn1.configure(fg_color=acccolour, hover_color=highlight)
     btn2.configure(fg_color=acccolour, hover_color=highlight)
     btn3.configure(fg_color=acccolour, hover_color=highlight)
@@ -73,14 +72,14 @@ def accent_colour(new_col):
     accent_colour_menu.configure(fg_color=acccolour, button_color=acccolour, button_hover_color=highlight)
 
 
-#Progress bar (Under revamp)
-canvas = tk.Canvas(app, width=480, height=30, highlightthickness=0, bg="#2B2B2B")
-canvas.grid(row=2, column=0, padx=0, pady=10, sticky="nw")
+#Progress bar
+Progress_bar = customtkinter.CTkProgressBar(app, orientation="horizontal", width = 440, progress_color=acccolour)
+Progress_bar.grid(row = 2, pady=10)
 def Prog_Upd():
   global move
   move = permove * int(Comp+1)
   print("bottom bar width : " +str(move)+ "px")
-  canvas.create_rectangle(0, 0, move, 30, fill=acccolour, width=2, outline="")
+  Progress_bar.set(move)
 
 
 #streak system 
@@ -123,7 +122,6 @@ def List_load():
   global Comp
   global permove
   global currstreak
-  canvas.create_rectangle(0, 0, 480, 30, fill="#2B2B2B", width=2, outline="")
   Comp = 0
   currstreak = 0
   rand_list = []
@@ -132,7 +130,7 @@ def List_load():
     rand_list.append(Tmp)
     print("Added " +str(Tmp))
     print("Curr list " +str(rand_list))
-  permove = 480 / int(Max)
+  permove = 1 / int(Max)
 
 #Creates frame 
 frame = customtkinter.CTkFrame(master=app, height=200)
