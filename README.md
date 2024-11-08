@@ -32,7 +32,7 @@ the Correct-ans just tells the program what the correct Op would be
 
 Goals : 
 - [ ] add True/False question type
-- [ ] add multiple choice question type
+- [x] add multiple choice question type (In beta release also still broken)
 - [x] add settings
 - [x] add new selection system
 - [x] add streak system
